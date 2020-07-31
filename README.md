@@ -15,3 +15,13 @@ hybrid of "Visual base" and "Text base" programming
 
 - Holder
 ノード（Operationや別のHolder）を内部に配置できるノード．
+
+## 使用予定フレームワーク・言語等
+- Node.js
+ランタイム．
+
+- Typescript
+- SCSS (BEM記法)
+
+## 適用先言語
+最初はRust.
