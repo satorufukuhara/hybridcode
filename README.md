@@ -2,7 +2,7 @@
 hybrid of "Visual base" and "Text base" programming
 
 ## Concept
-[コンセプト図](https://github.com/satorufukuhara/hybridcode/files/5004988/figure.pdf)
+![figure](https://user-images.githubusercontent.com/34291742/89000385-418ff380-d332-11ea-8290-fe342bd1a351.png)
 
 ## Minimum Value Product
 - 処理を直書きした関数同士を接続したグラフの作成
