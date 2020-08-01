@@ -1,0 +1,27 @@
+{
+  "name": "hybridcode",
+  "version": "1.0.0",
+  "description": "hybrid of \"Visual base\" and \"Text base\" programming",
+  "main": "index.js",
+  "dependencies": {
+    "npm": "^6.14.7"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.27",
+    "typescript": "^3.9.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satorufukuhara/hybridcode.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/satorufukuhara/hybridcode/issues"
+  },
+  "homepage": "https://github.com/satorufukuhara/hybridcode#readme"
+}

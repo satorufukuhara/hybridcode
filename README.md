@@ -36,3 +36,7 @@ Operationの中では「副作用」が起こらないようにする．
 
 ### 実装Todo
 - 全部
+
+## 実行
+```npx tsc```でsrc/index.tsからdist/index.jsを生成．
+```node dist/index.js```で実行．
