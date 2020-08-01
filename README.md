@@ -16,6 +16,10 @@ hybrid of "Visual base" and "Text base" programming
 - Holder
 ノード（Operationや別のHolder）を内部に配置できるノード．
 
+## 思想
+Operationの中では「副作用」が起こらないようにする．
+（mutableとして変数をinputした場合，必ずその変数をoutputする．）
+
 ## 使用予定フレームワーク・言語等
 - Node.js
 ランタイム．
@@ -25,3 +29,10 @@ hybrid of "Visual base" and "Text base" programming
 
 ## 適用先言語
 最初はRust.
+
+## To Do
+### 仕様レベルToDo
+- 一時保存の方法
+
+### 実装Todo
+- 全部
