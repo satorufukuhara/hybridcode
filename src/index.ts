@@ -8,7 +8,6 @@ class Main {
               this.requestHandler(request, response));
       server.listen('5000');
     }
-  
 
     private requestHandler(request: http.IncomingMessage,
                            response: http.ServerResponse): void {
