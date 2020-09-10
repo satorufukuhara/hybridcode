@@ -15,7 +15,7 @@ export class OperationNode{
         let elementID = "node"+ String(globalThis.nodeCounter);
         this.id = elementID;
         this.DOM.id = elementID;
-        this.DOM.className = 'node-operation';
+        this.DOM.className = 'operation-node';
 
         nodeList.appendChild(this.DOM);
 

@@ -10,7 +10,6 @@ header {
   height: var(--header-height);
   background-color: #494949;
   border-top: none;
-  border-bottom-color: var(--softblue);
 }
 
 .headline {
@@ -81,7 +80,7 @@ svg {
   z-index: 1;
 }
 
-.node-operation {
+.operation-node {
   height: 200px;
   width: 500px;
   position: absolute;
@@ -92,14 +91,17 @@ svg {
   z-index: 10;
 }
 
-.node-operation__input {
+.operation-node__input-area {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
   text-align: center;
 }
 
-.node-operation__input-title {
+.operation-node__input-title {
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -110,8 +112,18 @@ svg {
   height: 100%;
 }
 
-.node-operation__input-add {
+.operation-node__input-pin-area--immutable {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+}
+
+.operation-node__add-input-btn {
   width: 10%;
+  height: 100%;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -120,23 +132,16 @@ svg {
   background-color: gray;
 }
 
-.node-operation__input-pinarea {
-  width: 40%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.node-operation__input-pin--immutable {
-  border-right: dotted;
-  position: relative;
-  background-color: ghostwhite;
+.operation-node__input-pin {
   width: 30%;
   height: 100%;
-  z-index: 3;
+  display: table;
+  border-right: dotted;
+  background-color: var(--softblue);
+  position: relative;
 }
 
-.node-operation__input-pin-button {
+.operation-node__input-pin-btn {
   background-color: #9CDCFE;
   position: absolute;
   top: -10px;
@@ -147,20 +152,32 @@ svg {
   z-index: -1;
 }
 
-.node-operation__text {
+.operation-node__input-pin-info {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+  height: 60%;
+  margin: 0 auto;
+  color: white;
+}
+
+.operation-node__text-area {
   background-color: #F2F2F2;
   width: 100%;
   z-index: 100;
 }
 
-.node-operation__output {
+.operation-node__output-area {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
   text-align: center;
 }
 
-.node-operation__output-title {
+.operation-node__output-title {
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -171,8 +188,18 @@ svg {
   height: 100%;
 }
 
-.node-operation__output-add {
+.operation-node__output-pin-area--immutable {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+}
+
+.operation-node__add-output-btn {
   width: 10%;
+  height: 100%;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -181,21 +208,16 @@ svg {
   background-color: gray;
 }
 
-.node-operation__output-pinarea {
-  width: 40%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.node-operation__output-pin--immutable {
-  position: relative;
-  background-color: ghostwhite;
+.operation-node__output-pin {
   width: 30%;
   height: 100%;
+  display: table;
+  border-right: dotted;
+  background-color: var(--softblue);
+  position: relative;
 }
 
-.node-operation__output-pin-button {
+.operation-node__output-pin-btn {
   background-color: #9CDCFE;
   position: absolute;
   top: 20px;
@@ -204,5 +226,13 @@ svg {
   height: 20px;
   border-radius: 50%;
   z-index: -1;
+}
+
+.operation-node__output-pin-info {
+  display: table-cell;
+  vertical-align: middle;
+  width: 80%;
+  height: 60%;
+  margin: 0 auto;
 }
 /*# sourceMappingURL=index.css.map */

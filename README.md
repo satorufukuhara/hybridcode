@@ -30,13 +30,33 @@ Operationの中では「副作用」が起こらないようにする．
 ## 適用先言語
 最初はRust.
 
-## To Do
-### 仕様レベルToDo
+# To Do
+## 仕様レベルToDo
 - 一時保存の方法
 
-### 実装Todo
-- 全部
+## 実装Todo
+- 要素を削除するUI
+- 関数の出力
 
-## 実行
+# 実行
 ```tsc```でscripts中の.tsをbuild.
 ```npm start```でelectronを起動.
+
+# Class仕様
+## Operation Node
+- OperationNode
+    - InputArea
+        - InputTitle
+        - InputImmutablePinArea
+            - AddInputBtn
+            - InputPin(input-area__inputpin)
+                - InputPinBtn
+                - InputPinInfo (input-area__inputpin-info)//Name and Type
+    - TextArea (node-operation__text)
+    - OutputArea
+        - OutputTitle
+        - OutputImmutablePinAreaPin
+            - AddOutputBtn
+            - OutputPin
+                - OutputPinBtn
+                - OutputPinInfo //Name Text

@@ -21,7 +21,7 @@ export class InputArea{
         let elementid = parent.id + "-input";
         this.DOM.id = elementid;
         this.id = elementid;
-        this.DOM.className = 'node-operation__input';
+        this.DOM.className = 'operation-node__input-area';
 
         parent.DOM.appendChild(this.DOM);
 
@@ -38,7 +38,7 @@ class InputTitle{
         this.DOM = document.createElement("div");
         this.DOM.appendChild(document.createTextNode("INPUT"));
         //this.DOM.id = inputId+"-title";
-        this.DOM.className = 'node-operation__input-title';
+        this.DOM.className = 'operation-node__input-title';
         parent.DOM.appendChild(this.DOM);
         this.DOM.addEventListener('mousedown',(e) => { dragNode(e,this.parent.parent)} );
     }
@@ -50,7 +50,7 @@ class InputImmutablePinArea{
     constructor(parent:InputArea){
         this.parent = parent;
         this.DOM = document.createElement("div");
-        this.DOM.className = 'node-operation__input-pinarea'
+        this.DOM.className = 'operation-node__input-pin-area--immutable'
         parent.DOM.appendChild(this.DOM);
         new AddInputBtn(this);
     }
@@ -62,7 +62,7 @@ class AddInputBtn{
         this.DOM = document.createElement("div");
         const btntext = document.createTextNode("+");
         this.DOM.appendChild(btntext);
-        this.DOM.className = 'node-operation__input-add';
+        this.DOM.className = 'operation-node__add-input-btn';
         this.DOM.addEventListener('click', event =>{
             new InputPin(parent);
         })
@@ -75,12 +75,13 @@ export class InputPin{
     DOM:HTMLDivElement;
     id:string;
     btn:InputPinBtn;
+    info: InputPinInfo;
     connectList:Array<OutputPin>;
     constructor(parent:InputImmutablePinArea){
         this.parent = parent;
         this.DOM = document.createElement("div");
         //this.DOM.dataset.list = 'none' //List of Connected Edge;
-        this.DOM.className = 'node-operation__input-pin--immutable';
+        this.DOM.className = 'operation-node__input-pin';
         this.connectList = [];
 
         this.id = parent.parent.parent.id+'_'+ String(globalThis.pinCounter);
@@ -91,6 +92,7 @@ export class InputPin{
         parent.parent.parent.inputPinList.push(this);
         console.log('inputPinList =' + globalThis.nodeArray[0].inputPinList);
         this.btn = new InputPinBtn(this);
+        this.info = new InputPinInfo(this);
     }
 }
 
@@ -100,7 +102,7 @@ class InputPinBtn{
     constructor(parent:InputPin){
         this.parent = parent;
         this.DOM = document.createElement("div");
-        this.DOM.className = 'node-operation__input-pin-button';
+        this.DOM.className = 'operation-node__input-pin-btn';
         parent.DOM.appendChild(this.DOM);
 
         this.DOM.addEventListener('mouseup',e =>{
@@ -114,10 +116,28 @@ class InputPinBtn{
                 globalThis.edgeDrawing = false;
                 
                 drawEdgeOfNode(this.parent.parent.parent.parent);
-                //drawEdge(globalThis.dragStartX, globalThis.dragStartY, e.pageX, e.pageY ,'testEdgeId');
-                //console.log(inputPin.dataset.list.split(':'));
+                getInputVariable(globalThis.tmpStartPin,this.parent);
             }
         })
 
     }
+}
+
+
+class InputPinInfo{
+    parent:InputPin;
+    DOM:HTMLDivElement;
+    constructor(parent:InputPin){
+        this.parent = parent;
+        this.DOM = document.createElement("div");
+        //textform.width="100%";
+        this.DOM.className = 'operation-node__input-pin-info'
+        parent.DOM.appendChild(this.DOM);
+    }
+}
+
+function getInputVariable(output:OutputPin,input:InputPin){
+    let text = output.info.DOM.value;
+    console.log(text);
+    input.info.DOM.appendChild(document.createTextNode(text));
 }
