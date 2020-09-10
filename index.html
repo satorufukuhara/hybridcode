@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="./stylesheets/index.css">
+        <title>hybridcode Editor</title>
+    </head>
+    <header>
+    <h1 class="headline">
+        <a>Hybrid Code Editor</a>
+    </h1>
+    </header>
+    <body>
+
+        <div class="block">
+            <div class="block__nodeselector">
+                <div class="block__nodeselector-info">
+                    <h2>Node Selector</h2>
+                </div>
+              <div class="block__add-node--operation" id ="addNodeBtn">Operation Node</div>
+            </div>
+            
+            <div class="block__codearea" id="codearea">
+                <div class="info">
+                    <h2>Code Area</h2>
+                </div>
+                <div id="nodeList"></div>
+                <div id="edgeList"></div>
+                <svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg" id = svgArea></svg>
+            </div>
+          </div>
+
+          <script  type="module" src="./build/index.js"></script>
+          <script  type="module" src="./build/global.js"></script>
+          <script  type="module" src="./build/addoperationnode.js"></script>
+          
+          <script  type="module" src="./build/dragnode.js"></script>
+          <script  type="module" src="./build/drawedge.js"></script>
+          <script  type="module" src="./build/drawedgeofnode.js"></script>
+
+          <script  type="module" src="./build/inputarea_class.js"></script>
+          <script  type="module" src="./build/operationnode_class.js"></script>
+          <script  type="module" src="./build/outputarea_class.js"></script>
+          <script  type="module" src="./build/textarea_class.js"></script>
+          
+          
+    </body>
+</html>

@@ -1,27 +1,25 @@
 {
-  "name": "hybridcode",
+  "name": "electron_test",
   "version": "1.0.0",
-  "description": "hybrid of \"Visual base\" and \"Text base\" programming",
-  "main": "./dist/index.js",
-  "dependencies": {
-    "npm": "^6.14.7"
-  },
-  "devDependencies": {
-    "@types/node": "^14.0.27",
-    "typescript": "^3.9.7"
-  },
+  "description": "test for electron",
+  "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/satorufukuhara/hybridcode.git"
+    "url": "git+https://github.com/satorufukuhara/electron_test.git"
   },
-  "keywords": [],
-  "author": "",
+  "author": "satorufukuhara",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/satorufukuhara/hybridcode/issues"
+    "url": "https://github.com/satorufukuhara/electron_test/issues"
   },
-  "homepage": "https://github.com/satorufukuhara/hybridcode#readme"
+  "homepage": "https://github.com/satorufukuhara/electron_test#readme",
+  "devDependencies": {
+    "@types/node": "^14.6.4",
+    "electron": "^10.1.1",
+    "typescript": "^4.0.2"
+  }
 }

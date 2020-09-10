@@ -1,6 +1,6 @@
 node_modules/
 # generated js from ts
-dist/
+build/
 
 ##----github/gitignore/Global/Windows.gitignore
 # Windows thumbnail cache files

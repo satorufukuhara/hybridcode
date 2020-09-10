@@ -38,5 +38,5 @@ Operationの中では「副作用」が起こらないようにする．
 - 全部
 
 ## 実行
-```npx tsc```でsrc/index.tsからdist/index.jsを生成．
-```node dist/index.js```で実行．
+```tsc```でscripts中の.tsをbuild.
+```npm start```でelectronを起動.
