@@ -1,5 +1,5 @@
 import { OperationNode } from "./operationnode_class.js";
-import { drawEdgeOfNode, clearEdgeOfNode } from "./drawedgeofnode.js";
+import { drawEdgeOfNode, clearEdgeOfNode } from "./drawedge.js";
 
 export function dragNode(event,target:OperationNode){
         //const el = inputTitle

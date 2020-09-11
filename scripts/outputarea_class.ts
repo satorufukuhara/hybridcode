@@ -1,13 +1,16 @@
-import {drawEdge,InputPin,startFindPin,dragNode, OperationNode} from './index.js'
+import {connectPins,InputPin,startFindPin,dragNode, OperationNode} from './index.js'
 import { DeletePinBtn } from './deletpinbtn_class.js';
+import { MainFunctionClass } from './mainfunction.js';
 
 
 export class OutputArea{
     DOM:HTMLDivElement;
     id:string;
     parent:OperationNode;
+    main:MainFunctionClass;
     constructor(parent:OperationNode){
         this.parent = parent;
+        this.main = parent.main;
         this.DOM = document.createElement("div");
         let elementid = parent.id + "-output";
         this.DOM.id = elementid;
@@ -24,8 +27,10 @@ export class OutputArea{
 class OutputTitle{
     DOM:HTMLDivElement;
     parent:OutputArea;
+    main: MainFunctionClass;
     constructor(parent:OutputArea){
         this.parent = parent;
+        this.main = parent.main;
         this.DOM = document.createElement("div");
         this.DOM.appendChild(document.createTextNode("OUTPUT"));
         //this.DOM.id = inputId+"-title";
@@ -38,8 +43,10 @@ class OutputTitle{
 class OutputImmutablePinArea{
     DOM:HTMLDivElement;
     parent:OutputArea;
+    main:MainFunctionClass;
     constructor(parent:OutputArea){
         this.parent = parent;
+        this.main = parent.main;
         this.DOM = document.createElement("div");
         this.DOM.className = 'operation-node__output-pin-area--immutable'
         new AddOutputBtn(this);
@@ -48,7 +55,11 @@ class OutputImmutablePinArea{
 }
 class AddOutputBtn{
     DOM:HTMLDivElement;
+    parent:OutputImmutablePinArea;
+    main: MainFunctionClass;
     constructor(parent:OutputImmutablePinArea){
+        this.parent = parent;
+        this.main = parent.main;
         this.DOM = document.createElement("div");
         const btntext = document.createTextNode("+");
         this.DOM.appendChild(btntext);
@@ -67,15 +78,19 @@ export class OutputPin{
     connectList: {[key:string]: InputPin;};
     info: OutputPinInfo;
     parent: OutputImmutablePinArea;
+    main: MainFunctionClass;
+    node: OperationNode;
     constructor(parent:OutputImmutablePinArea){
         this.parent = parent;
+        this.node = this.parent.parent.parent;
+        this.main = parent.main;
         this.DOM = document.createElement("div");
         this.DOM.dataset.list = 'none' //List of Connected Edge;
         this.connectList = {};
         this.DOM.className = 'operation-node__output-pin';
-        this.id = parent.parent.parent.id+'_'+ String(globalThis.pinCounter);
+        this.id = parent.parent.parent.id+'_'+ String(this.main.pinCounter);
         console.log('pinID =' + this.id)
-        globalThis.pinCounter +=1;
+        this.main.pinCounter += 1;
         parent.DOM.appendChild(this.DOM);
 
         //parent.parent.parent.outputPinList.push(this);
@@ -87,15 +102,18 @@ export class OutputPin{
     }
 }
 
-class OutputPinBtn{
+export class OutputPinBtn{
     DOM:HTMLDivElement;
     parent:OutputPin;
+    main:MainFunctionClass;
     constructor(parent:OutputPin){
         this.parent = parent;
+        this.main = parent.main;
         this.DOM = document.createElement("div");
         this.DOM.className = 'operation-node__output-pin-btn';
         parent.DOM.appendChild(this.DOM);
 
+        this.DOM.addEventListener('mouseup',e =>{connectPins(e,this)});
         this.DOM.addEventListener('mousedown', (e) => {startFindPin(e,this.parent)});
     }
 }
@@ -103,8 +121,10 @@ class OutputPinBtn{
 class OutputPinInfo{
     parent:OutputPin;
     DOM:HTMLTextAreaElement;
+    main:MainFunctionClass;
     constructor(parent:OutputPin){
         this.parent = parent;
+        this.main = parent.main;
         this.DOM = document.createElement("textarea");
         //textform.width="100%";
         this.DOM.className = 'operation-node__output-pin-info'

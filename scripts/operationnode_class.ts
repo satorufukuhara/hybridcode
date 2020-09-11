@@ -1,4 +1,5 @@
-import {nodeList, InputArea, InputPin, OutputPin, TextArea, OutputArea} from "./index.js";
+import {InputArea, InputPin, OutputPin, TextArea, OutputArea} from "./index.js";
+import { MainFunctionClass } from "./mainfunction.js";
 
 //let newNode = new OperationNode();
 export class OperationNode{
@@ -6,26 +7,27 @@ export class OperationNode{
     inputPinList : {[key: string]: InputPin;} //:Array<InputPin>;
     outputPinList: {[key: string]: OutputPin;}//:Array<OutputPin>;
     id:string;
-    constructor(){
+    main:MainFunctionClass;
+    constructor(main:MainFunctionClass){
+        this.main = main;
         this.DOM = document.createElement("div");
-        globalThis.nodeArray.push(this);
+        //globalThis.nodeArray.push(this);
         this.inputPinList = {};//initialize
         this.outputPinList = {};
 
-        let elementID = "node"+ String(globalThis.nodeCounter);
+        let elementID:string = "node"+ String(this.main.nodeCounter);
         this.id = elementID;
         this.DOM.id = elementID;
         this.DOM.className = 'operation-node';
+        this.main.nodeList[this.id] = this;
 
-        nodeList.appendChild(this.DOM);
+        document.getElementById("nodeListDOM").appendChild(this.DOM);
 
-        globalThis.nodeCounter +=  1;
+        this.main.nodeCounter +=  1;
         console.log(elementID);
 
         new InputArea(this);
         new TextArea(this);
         new OutputArea(this);
-        console.log('nodeArray =' + globalThis.nodeArray);
-        
     }
 }

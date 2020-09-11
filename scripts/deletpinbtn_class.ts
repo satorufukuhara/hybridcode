@@ -1,5 +1,4 @@
 import { InputPin, OutputPin } from "./index.js";
-import { clearEdgeOfNode } from "./drawedgeofnode.js";
 
 export class DeletePinBtn{
     DOM:HTMLDivElement;

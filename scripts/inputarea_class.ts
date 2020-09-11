@@ -1,5 +1,4 @@
-import {drawEdge, dragNode, OperationNode, OutputPin} from './index.js'
-import { drawEdgeOfNode, clearEdgeOfNode } from './drawedgeofnode.js';
+import {MainFunctionClass,startFindPin,connectPins, dragNode, OperationNode, OutputPin} from './index.js'
 import { DeletePinBtn, removeTargetFromList } from './deletpinbtn_class.js';
 
 // OperationNode
@@ -16,8 +15,10 @@ export class InputArea{
     DOM:HTMLDivElement;
     id:string;
     parent:OperationNode;
+    main:MainFunctionClass;
     constructor(parent:OperationNode){
         this.parent = parent;
+        this.main = parent.main;
         this.DOM = document.createElement("div");
         let elementid = parent.id + "-input";
         this.DOM.id = elementid;
@@ -34,8 +35,10 @@ export class InputArea{
 class InputTitle{
     DOM:HTMLDivElement;
     parent:InputArea;
+    main:MainFunctionClass;
     constructor(parent:InputArea){
         this.parent = parent;
+        this.main = parent.main;
         this.DOM = document.createElement("div");
         this.DOM.appendChild(document.createTextNode("INPUT"));
         //this.DOM.id = inputId+"-title";
@@ -48,8 +51,10 @@ class InputTitle{
 class InputImmutablePinArea{
     DOM:HTMLDivElement;
     parent:InputArea;
+    main: MainFunctionClass;
     constructor(parent:InputArea){
         this.parent = parent;
+        this.main = parent.main;
         this.DOM = document.createElement("div");
         this.DOM.className = 'operation-node__input-pin-area--immutable'
         parent.DOM.appendChild(this.DOM);
@@ -78,51 +83,44 @@ export class InputPin{
     btn:InputPinBtn;
     info: InputPinInfo;
     connectList: {[key:string]: OutputPin;};
+    main: MainFunctionClass;
+    node: OperationNode;
     constructor(parent:InputImmutablePinArea){
         this.parent = parent;
+        this.node = this.parent.parent.parent;
+        this.main = parent.main;
         this.DOM = document.createElement("div");
         //this.DOM.dataset.list = 'none' //List of Connected Edge;
         this.DOM.className = 'operation-node__input-pin';
         this.connectList = {};
 
-        this.id = parent.parent.parent.id+'_'+ String(globalThis.pinCounter);
+        this.id = parent.parent.parent.id+'_'+ String(this.main.pinCounter);
         console.log('pinID =' + this.id)
-        globalThis.pinCounter +=1;
+        this.main.pinCounter +=1;
 
         parent.DOM.appendChild(this.DOM);
         //parent.parent.parent.inputPinList.push(this);
         parent.parent.parent.inputPinList[this.id]=this;
 
-        console.log('inputPinList =' + globalThis.nodeArray[0].inputPinList);
         this.btn = new InputPinBtn(this);
         this.info = new InputPinInfo(this);
         new DeletePinBtn(this);
     }
 }
 
-class InputPinBtn{
+export class InputPinBtn{
     DOM:HTMLDivElement;
     parent:InputPin;
+    main:MainFunctionClass;
     constructor(parent:InputPin){
         this.parent = parent;
+        this.main = parent.main;
         this.DOM = document.createElement("div");
         this.DOM.className = 'operation-node__input-pin-btn';
         parent.DOM.appendChild(this.DOM);
 
-        this.DOM.addEventListener('mouseup',e =>{
-            if(globalThis.edgeDrawing === true){
-                console.log("edge connected");
-                //this.parent.DOM.dataset.list += ':'+ globalThis.startPinId;
-                clearEdgeOfNode(this.parent.parent.parent.parent);
-                let target = globalThis.tmpStartPin;
-                this.parent.connectList[target.id] = target;
-                target.connectList[this.parent.id] = this.parent; //record on OutputPin
-
-                globalThis.edgeDrawing = false;
-                drawEdgeOfNode(this.parent.parent.parent.parent);
-                getInputVariable(globalThis.tmpStartPin,this.parent);
-            }
-        })
+        this.DOM.addEventListener('mouseup',e =>{connectPins(e,this)});
+        this.DOM.addEventListener('mousedown', (e) => {startFindPin(e,this.parent)});
 
     }
 }
@@ -131,8 +129,10 @@ class InputPinBtn{
 class InputPinInfo{
     parent:InputPin;
     DOM:HTMLDivElement;
+    main:MainFunctionClass;
     constructor(parent:InputPin){
         this.parent = parent;
+        this.main = parent.main;
         this.DOM = document.createElement("div");
         //textform.width="100%";
         this.DOM.className = 'operation-node__input-pin-info'
@@ -140,8 +140,4 @@ class InputPinInfo{
     }
 }
 
-function getInputVariable(output:OutputPin,input:InputPin){
-    let text = output.info.DOM.value;
-    console.log(text);
-    input.info.DOM.appendChild(document.createTextNode(text));
-}
+
