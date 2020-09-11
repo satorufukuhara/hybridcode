@@ -14,17 +14,19 @@ export class DeletePinBtn{
 }
 
 function deletePin(e, s: OutputPin|InputPin){
-    s.connectList.forEach( (t:InputPin|OutputPin) =>{
-        deleteConnectedEdge(s,t); //remove SVG DOM
-        removeTargetFromList(t.connectList,s);
-    });
-    s.DOM.remove();
+    for(let keys in s.connectList){
+        let t = s.connectList[keys];
+        deleteConnectedEdge(s,t) //remove SVG DOM if exists;
+        delete t.connectList[s.id];
+        s.DOM.remove();
+    };
+    
 
     //remove from In/Output Pin List
-    console.log('inputpinlist(before=)'+s.parent.parent.parent.inputPinList);
-    removeTargetFromList(s.parent.parent.parent.inputPinList, s);
-    removeTargetFromList(s.parent.parent.parent.outputPinList,s);
-    console.log('inputpinlist(sfter=)'+s.parent.parent.parent.inputPinList);
+    //console.log('inputpinlist(before=)'+ Object.keys(s.parent.parent.parent.inputPinList));
+    delete s.parent.parent.parent.inputPinList[s.id]
+    delete s.parent.parent.parent.outputPinList[s.id]
+    //console.log('inputpinlist(sfter=)'+Object.keys(s.parent.parent.parent.inputPinList));
 }
 
 function deleteConnectedEdge(s: InputPin|OutputPin,t: InputPin|OutputPin){
@@ -45,3 +47,7 @@ export function removeTargetFromList(a, target){
         }
     );
 }
+
+//export function removeTargetFromDictionary(list, key_name){
+//    delete list.key_name;
+//}

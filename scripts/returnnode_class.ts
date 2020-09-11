@@ -22,10 +22,9 @@ export class ReturnNode{
         globalThis.nodeCounter +=  1;
         console.log(elementID);
 
-        new InputArea(this);
-        new TextArea(this);
-        new OutputArea(this);
+        //new InputArea(this);
+        //new TextArea(this);
+        //new OutputArea(this);
         console.log('nodeArray =' + globalThis.nodeArray);
-        
     }
 }

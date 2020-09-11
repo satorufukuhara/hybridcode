@@ -62,23 +62,24 @@ class AddOutputBtn{
 
 export class OutputPin{
     DOM:HTMLDivElement;
-    id:String;
+    id: string;
     btn:OutputPinBtn
-    connectList:Array<InputPin>;
+    connectList: {[key:string]: InputPin;};
     info: OutputPinInfo;
     parent: OutputImmutablePinArea;
     constructor(parent:OutputImmutablePinArea){
         this.parent = parent;
         this.DOM = document.createElement("div");
         this.DOM.dataset.list = 'none' //List of Connected Edge;
-        this.connectList = [];
+        this.connectList = {};
         this.DOM.className = 'operation-node__output-pin';
         this.id = parent.parent.parent.id+'_'+ String(globalThis.pinCounter);
         console.log('pinID =' + this.id)
         globalThis.pinCounter +=1;
         parent.DOM.appendChild(this.DOM);
 
-        parent.parent.parent.outputPinList.push(this);
+        //parent.parent.parent.outputPinList.push(this);
+        parent.parent.parent.outputPinList[this.id]=this;
 
         this.btn = new OutputPinBtn(this);
         this.info = new OutputPinInfo(this);

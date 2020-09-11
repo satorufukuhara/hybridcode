@@ -1,6 +1,6 @@
 import {drawEdge, dragNode, OperationNode, OutputPin} from './index.js'
 import { drawEdgeOfNode, clearEdgeOfNode } from './drawedgeofnode.js';
-import { DeletePinBtn } from './deletpinbtn_class.js';
+import { DeletePinBtn, removeTargetFromList } from './deletpinbtn_class.js';
 
 // OperationNode
 // -- InputArea
@@ -77,20 +77,22 @@ export class InputPin{
     id:string;
     btn:InputPinBtn;
     info: InputPinInfo;
-    connectList:Array<OutputPin>;
+    connectList: {[key:string]: OutputPin;};
     constructor(parent:InputImmutablePinArea){
         this.parent = parent;
         this.DOM = document.createElement("div");
         //this.DOM.dataset.list = 'none' //List of Connected Edge;
         this.DOM.className = 'operation-node__input-pin';
-        this.connectList = [];
+        this.connectList = {};
 
         this.id = parent.parent.parent.id+'_'+ String(globalThis.pinCounter);
         console.log('pinID =' + this.id)
         globalThis.pinCounter +=1;
 
         parent.DOM.appendChild(this.DOM);
-        parent.parent.parent.inputPinList.push(this);
+        //parent.parent.parent.inputPinList.push(this);
+        parent.parent.parent.inputPinList[this.id]=this;
+
         console.log('inputPinList =' + globalThis.nodeArray[0].inputPinList);
         this.btn = new InputPinBtn(this);
         this.info = new InputPinInfo(this);
@@ -112,11 +114,11 @@ class InputPinBtn{
                 console.log("edge connected");
                 //this.parent.DOM.dataset.list += ':'+ globalThis.startPinId;
                 clearEdgeOfNode(this.parent.parent.parent.parent);
-                this.parent.connectList.push(globalThis.tmpStartPin);
-                globalThis.tmpStartPin.connectList.push(this.parent); //record on OutputPin
+                let target = globalThis.tmpStartPin;
+                this.parent.connectList[target.id] = target;
+                target.connectList[this.parent.id] = this.parent; //record on OutputPin
 
                 globalThis.edgeDrawing = false;
-                
                 drawEdgeOfNode(this.parent.parent.parent.parent);
                 getInputVariable(globalThis.tmpStartPin,this.parent);
             }
