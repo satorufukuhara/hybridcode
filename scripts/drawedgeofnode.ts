@@ -1,21 +1,22 @@
 import {OperationNode,drawEdge,InputPin, OutputPin} from './index.js'
 import { start } from 'repl'
+import { clear } from 'console';
 
 export function drawEdgeOfNode(target:OperationNode){
     //for every InputNode and OutputNode in target
     target.inputPinList.forEach((inPin,sindex) => {
         inPin.connectList.forEach( (outPin,tindex) => {
-            edgeBetweenPins(outPin, inPin);
+            drawEdgeBetweenPins(outPin, inPin);
         });
     });
     target.outputPinList.forEach((outPin,sindex) => {
         outPin.connectList.forEach( (inPin,tindex) => {
-            edgeBetweenPins(outPin,inPin);
+            drawEdgeBetweenPins(outPin,inPin);
         });
     });
 }
 
-function edgeBetweenPins(s:OutputPin,t:InputPin){
+export function drawEdgeBetweenPins(s:OutputPin,t:InputPin){
     let sPosition = s.btn.DOM.getBoundingClientRect();
     let tPosition = t.btn.DOM.getBoundingClientRect();
     let x1 = (sPosition.left + sPosition.right)/2 ;
@@ -38,4 +39,9 @@ export function clearEdgeOfNode(target:OperationNode){
             document.getElementById(outPin.id+'_to_'+inPin.id).remove();
         });
     });
+}
+
+export function redrawEdgeOfNode(target:OperationNode){
+    clearEdgeOfNode(target);
+    drawEdgeOfNode(target);
 }

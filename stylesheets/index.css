@@ -235,4 +235,13 @@ svg {
   height: 60%;
   margin: 0 auto;
 }
+
+.operation-node__delete-pin-btn {
+  position: absolute;
+  background-color: red;
+  left: 30px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
 /*# sourceMappingURL=index.css.map */

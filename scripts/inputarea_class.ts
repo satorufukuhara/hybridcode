@@ -1,5 +1,6 @@
 import {drawEdge, dragNode, OperationNode, OutputPin} from './index.js'
 import { drawEdgeOfNode, clearEdgeOfNode } from './drawedgeofnode.js';
+import { DeletePinBtn } from './deletpinbtn_class.js';
 
 // OperationNode
 // -- InputArea
@@ -93,6 +94,7 @@ export class InputPin{
         console.log('inputPinList =' + globalThis.nodeArray[0].inputPinList);
         this.btn = new InputPinBtn(this);
         this.info = new InputPinInfo(this);
+        new DeletePinBtn(this);
     }
 }
 

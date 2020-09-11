@@ -219,4 +219,12 @@ svg{
                     height: 60%;
                     margin: 0 auto;
                 }
-            }
+    &__delete-pin-btn{
+        position: absolute;
+        background-color: red;
+        left: 30px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
+}

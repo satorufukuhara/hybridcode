@@ -1,4 +1,5 @@
 import {drawEdge,InputPin,startFindPin,dragNode, OperationNode} from './index.js'
+import { DeletePinBtn } from './deletpinbtn_class.js';
 
 
 export class OutputArea{
@@ -65,7 +66,9 @@ export class OutputPin{
     btn:OutputPinBtn
     connectList:Array<InputPin>;
     info: OutputPinInfo;
+    parent: OutputImmutablePinArea;
     constructor(parent:OutputImmutablePinArea){
+        this.parent = parent;
         this.DOM = document.createElement("div");
         this.DOM.dataset.list = 'none' //List of Connected Edge;
         this.connectList = [];
@@ -79,6 +82,7 @@ export class OutputPin{
 
         this.btn = new OutputPinBtn(this);
         this.info = new OutputPinInfo(this);
+        new DeletePinBtn(this);
     }
 }
 
