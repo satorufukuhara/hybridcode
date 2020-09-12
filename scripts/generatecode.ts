@@ -131,7 +131,7 @@ function generateCodeOfThisNode(node:SimpleInOutList, node_list:{[key: string]: 
     //1. write header 
     // c, d = function(a,b){
     let exist_output = 0;
-    node.main.generatedText += 'let '
+    node.main.generatedText += 'let ('
     for(let key in node.original.outputPinList){
         exist_output = 1;
         node.main.generatedText += node.original.outputPinList[key].info.DOM.value;
@@ -140,9 +140,9 @@ function generateCodeOfThisNode(node:SimpleInOutList, node_list:{[key: string]: 
     //"function(a,b){ "
     if(exist_output){
         node.main.generatedText = node.main.generatedText.slice(0,-2); //delete ", "
-        node.main.generatedText += ' = '
+        node.main.generatedText += ') = '
     }else{
-        node.main.generatedText = node.main.generatedText.slice(0,-4); //delete "let "
+        node.main.generatedText = node.main.generatedText.slice(0,-5); //delete "let ("
     }
 
     node.main.generatedText += node.original.nameDOM.value+ '(';

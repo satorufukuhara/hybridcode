@@ -290,14 +290,14 @@ svg {
 .operation-node__output-pin-info {
   display: table-cell;
   vertical-align: middle;
-  width: 40%;
+  width: 35%;
   height: 60%;
 }
 
 .operation-node__output-pin-type {
   display: table-cell;
   vertical-align: middle;
-  width: 40%;
+  width: 35%;
   height: 60%;
 }
 

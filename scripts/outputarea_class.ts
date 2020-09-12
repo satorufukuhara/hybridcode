@@ -131,6 +131,7 @@ class OutputPinInfo{
         //textform.width="100%";
         this.DOM.className = 'operation-node__output-pin-info'
         this.DOM.rows = 1;
+        this.DOM.value = 'name';
         parent.DOM.appendChild(this.DOM);
     }
 }
@@ -146,6 +147,7 @@ class OutputPinType{
         //textform.width="100%";
         this.DOM.className = 'operation-node__output-pin-type'
         this.DOM.rows = 1;
+        this.DOM.value = 'type';
         parent.DOM.appendChild(this.DOM);
     }
 }
