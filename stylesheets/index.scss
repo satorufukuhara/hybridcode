@@ -34,22 +34,27 @@ svg{
     height: 1000rem;
     z-index: 2;
 }
-.generate-code-btn{
+.generator{
     position: absolute;
-    margin: auto;
     top: 20rem;
-    left:0;
-    right:0;
-    user-select: none;
-    text-align: center;
-    height: 2rem;
-    width:  10rem;
-    color: white;
-    background-color: green;
-    border-radius:5%;
-    z-index: 10;
-    text-align:center;
+    &__generate-code-btn{
+        position: relative;
+        margin: auto;
+        top: 0rem;
+        left:0;
+        right:0;
+        user-select: none;
+        text-align: center;
+        height: 2rem;
+        width:  10rem;
+        color: white;
+        background-color: green;
+        border-radius:5%;
+        z-index: 10;
+        text-align:center;
+    }
 }
+
 .block{
     //display: table;
     overflow: hidden;

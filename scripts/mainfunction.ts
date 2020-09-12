@@ -1,4 +1,4 @@
-import {OperationNode, OutputPin, InputPin} from './index.js'
+import {OperationNode, OutputPin, InputPin, generateCode} from './index.js'
 
 export class MainFunctionClass{
     startPinID:string;
@@ -9,6 +9,7 @@ export class MainFunctionClass{
     dragStartX:number;
     dragStartY:number;
     nodeList : {[key: string]: OperationNode;}
+    generatedText :string;
     constructor(){
         this.edgeDrawing = false;
         this.startPinID = 'Null';
@@ -17,6 +18,7 @@ export class MainFunctionClass{
         this.dragStartX = 0;
         this.dragStartY = 0;
         this.nodeList = {};
+        this.generatedText = '';
 
         document.getElementById("addNodeBtn").addEventListener('click', e => {addOperationNode(this)});
         document.getElementById("generateCodeBtn").addEventListener('click', e=>{generateCode(this)});
@@ -26,10 +28,4 @@ export class MainFunctionClass{
 export function addOperationNode(main){
     new OperationNode(main);
     console.log('create node');
-}
-
-function generateCode(main){
-    for (let keys in main.nodeList){
-        console.log(keys);
-    }
 }

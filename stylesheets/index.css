@@ -33,10 +33,15 @@ svg {
   z-index: 2;
 }
 
-.generate-code-btn {
+.generator {
   position: absolute;
-  margin: auto;
   top: 20rem;
+}
+
+.generator__generate-code-btn {
+  position: relative;
+  margin: auto;
+  top: 0rem;
   left: 0;
   right: 0;
   -webkit-user-select: none;
