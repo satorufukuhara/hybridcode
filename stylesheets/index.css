@@ -1,6 +1,8 @@
 :root {
   --header-height: 30px;
   --softblue:#005AFF;
+  --unigreen: #03AF7A;
+  --unilblue:#4DC4FF;
 }
 
 html,
@@ -36,11 +38,13 @@ svg {
 .generator {
   position: absolute;
   top: 20rem;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .generator__generate-code-btn {
   position: relative;
-  margin: auto;
+  margin: 0 auto;
   top: 0rem;
   left: 0;
   right: 0;
@@ -52,10 +56,15 @@ svg {
   height: 2rem;
   width: 10rem;
   color: white;
-  background-color: green;
+  background-color: var(--unigreen);
   border-radius: 5%;
   z-index: 10;
   text-align: center;
+}
+
+.generator__generated-code {
+  margin: 0 auto;
+  width: 90%;
 }
 
 .block {
@@ -111,9 +120,24 @@ svg {
   position: absolute;
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 30px 100px 30px;
-      grid-template-rows: 30px 100px 30px;
+  -ms-grid-rows: 30px 30px 100px 30px;
+      grid-template-rows: 30px 30px 100px 30px;
   z-index: 10;
+}
+
+.operation-node__function-name {
+  background-color: var(--unilblue);
+  width: 20%;
+  height: 100%;
+  display: table;
+}
+
+.operation-node__function-name-text-area {
+  display: table-cell;
+  vertical-align: middle;
+  width: 80%;
+  height: 60%;
+  margin: 0 auto;
 }
 
 .operation-node__input-area {

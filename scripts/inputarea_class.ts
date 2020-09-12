@@ -1,5 +1,5 @@
 import {MainFunctionClass,startFindPin,connectPins, dragNode, OperationNode, OutputPin} from './index.js'
-import { DeletePinBtn, removeTargetFromList } from './deletpinbtn_class.js';
+import { DeletePinBtn, removeTargetFromList } from './deletepinbtn_class.js';
 
 // OperationNode
 // -- InputArea
