@@ -77,6 +77,7 @@ export class OutputPin{
     btn:OutputPinBtn
     connectList: {[key:string]: InputPin;};
     info: OutputPinInfo;
+    type: OutputPinType;
     parent: OutputImmutablePinArea;
     main: MainFunctionClass;
     node: OperationNode;
@@ -98,6 +99,7 @@ export class OutputPin{
 
         this.btn = new OutputPinBtn(this);
         this.info = new OutputPinInfo(this);
+        this.type = new OutputPinType(this);
         new DeletePinBtn(this);
     }
 }
@@ -128,6 +130,21 @@ class OutputPinInfo{
         this.DOM = document.createElement("textarea");
         //textform.width="100%";
         this.DOM.className = 'operation-node__output-pin-info'
+        this.DOM.rows = 1;
+        parent.DOM.appendChild(this.DOM);
+    }
+}
+
+class OutputPinType{
+    parent:OutputPin;
+    DOM:HTMLTextAreaElement;
+    main:MainFunctionClass;
+    constructor(parent:OutputPin){
+        this.parent = parent;
+        this.main = parent.main;
+        this.DOM = document.createElement("textarea");
+        //textform.width="100%";
+        this.DOM.className = 'operation-node__output-pin-type'
         this.DOM.rows = 1;
         parent.DOM.appendChild(this.DOM);
     }

@@ -173,6 +173,7 @@ svg{
                 //color: ghostwhite;
                 background-color:var(--softblue);
                 position: relative;
+                text-align:center;
             }
 
                 &__input-pin-btn{
@@ -188,7 +189,15 @@ svg{
                 &__input-pin-info{
                     display: table-cell;
                     vertical-align: middle;
-                    width: 100%;
+                    width: 40%;
+                    height: 60%;
+                    margin: 0 auto;
+                    color: white;
+                }
+                &__input-pin-type{
+                    display: table-cell;
+                    vertical-align: middle;
+                    width: 40%;
                     height: 60%;
                     margin: 0 auto;
                     color: white;
@@ -256,9 +265,16 @@ svg{
                 &__output-pin-info{
                     display: table-cell;
                     vertical-align: middle;
-                    width: 80%;
+                    width: 40%;
                     height: 60%;
-                    margin: 0 auto;
+                    //margin: 0 auto;
+                }
+                &__output-pin-type{
+                    display: table-cell;
+                    vertical-align: middle;
+                    width: 40%;
+                    height: 60%;
+                    //margin: 0 auto;
                 }
     &__delete-pin-btn{
         position: absolute;

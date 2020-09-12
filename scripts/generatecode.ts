@@ -95,9 +95,10 @@ function generateFunction(node:SimpleInOutList, node_list:{[key: string]: Simple
     let exist_input = 0;
     for(let key in node.original.inputPinList){
         let in_variable = node.original.inputPinList[key].info.DOM.textContent;
+        let in_type = node.original.inputPinList[key].type.DOM.textContent;
         if(in_variable!=''){ //<div id= ...info >text </div> //createTextNode(text)
             exist_input = 1;
-            node.main.generatedText += in_variable  ;
+            node.main.generatedText += in_variable + ":" +in_type ;
             node.main.generatedText += ', ';
         }
     }
@@ -111,7 +112,7 @@ function generateFunction(node:SimpleInOutList, node_list:{[key: string]: Simple
     let exist_output = 0;
     for(let key in node.original.outputPinList){
         exist_output = 1;
-        node.main.generatedText += node.original.outputPinList[key].info.DOM.value ;
+        node.main.generatedText += node.original.outputPinList[key].type.DOM.value ;
         node.main.generatedText += ', '
     }
     //"function(a,b){ "

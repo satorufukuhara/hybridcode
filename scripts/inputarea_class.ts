@@ -82,6 +82,7 @@ export class InputPin{
     id:string;
     btn:InputPinBtn;
     info: InputPinInfo;
+    type: InputPinType;
     connectList: {[key:string]: OutputPin;};
     main: MainFunctionClass;
     node: OperationNode;
@@ -104,6 +105,7 @@ export class InputPin{
 
         this.btn = new InputPinBtn(this);
         this.info = new InputPinInfo(this);
+        this.type = new InputPinType(this);
         new DeletePinBtn(this);
     }
 }
@@ -139,5 +141,19 @@ class InputPinInfo{
         parent.DOM.appendChild(this.DOM);
     }
 }
+class InputPinType{
+    parent:InputPin;
+    DOM:HTMLDivElement;
+    main:MainFunctionClass;
+    constructor(parent:InputPin){
+        this.parent = parent;
+        this.main = parent.main;
+        this.DOM = document.createElement("div");
+        //textform.width="100%";
+        this.DOM.className = 'operation-node__input-pin-type'
+        parent.DOM.appendChild(this.DOM);
+    }
+}
+
 
 

@@ -33,10 +33,14 @@ export function connectPins(e,terminalPinBtn: InputPinBtn|OutputPinBtn){
 function setInputVariableFromOutput(start:InputPin|OutputPin,terminal:OutputPin|InputPin){
     if(start instanceof InputPin && terminal instanceof OutputPin){
         let text = terminal.info.DOM.value;
+        let type = terminal.type.DOM.value;
         start.info.DOM.appendChild(document.createTextNode(text) );
+        start.type.DOM.appendChild(document.createTextNode(type) );
     }else if(terminal instanceof InputPin && start instanceof OutputPin){
         let text = start.info.DOM.value;
+        let type = start.type.DOM.value;
         terminal.info.DOM.appendChild(document.createTextNode(text) );
+        terminal.type.DOM.appendChild(document.createTextNode(type) );
     }
     // To Do: error handling of Input to Input
 }

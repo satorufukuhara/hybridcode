@@ -188,6 +188,7 @@ svg {
   border-right: dotted;
   background-color: var(--softblue);
   position: relative;
+  text-align: center;
 }
 
 .operation-node__input-pin-btn {
@@ -204,7 +205,16 @@ svg {
 .operation-node__input-pin-info {
   display: table-cell;
   vertical-align: middle;
-  width: 100%;
+  width: 40%;
+  height: 60%;
+  margin: 0 auto;
+  color: white;
+}
+
+.operation-node__input-pin-type {
+  display: table-cell;
+  vertical-align: middle;
+  width: 40%;
   height: 60%;
   margin: 0 auto;
   color: white;
@@ -280,9 +290,15 @@ svg {
 .operation-node__output-pin-info {
   display: table-cell;
   vertical-align: middle;
-  width: 80%;
+  width: 40%;
   height: 60%;
-  margin: 0 auto;
+}
+
+.operation-node__output-pin-type {
+  display: table-cell;
+  vertical-align: middle;
+  width: 40%;
+  height: 60%;
 }
 
 .operation-node__delete-pin-btn {
