@@ -33,15 +33,16 @@ Operationの中では「副作用」が起こらないようにする．
 - 多階層ノード
 
 ## その他機能
-- OutputPinに推論された型を表示
 - 一時保存の方法
+    - オブジェクトの構造に座標を加えてJSONとして保存したい．
 - 元に戻すなどへの対応
 - Node本体の削除
+- OutputPinに推論された型を表示
 
 ## UI
 - マウスドラッグが時々イレギュラーな挙動
+    - 文字が選択されたりする．
 - 関数記述エリアの拡大に合わせてノードを調整
-
 
 
 # 実行
@@ -49,9 +50,15 @@ Operationの中では「副作用」が起こらないようにする．
 ```npm start```でelectronを起動.
 
 # Class仕様
+通常のコードにおける「一つの関数」それぞれに対してオブジェクトを生成する．
+このオブジェクトの名前は「Node」や「Function」などが考えられるが，Node.js上で動かすうえでどこかで障害が出うるため，「Pot(鉢植え)」とする．
+Potの中にもPotを置くことができる．このようなPotをBigPotとする．内部に置かれたPotは自身が置かれたPotを「Garden」として参照する．
+Main関数も1つのBigPotであるが，これは内部にあるPotからアクセスすることもあるため特別に「Planet」という名前をつける．気持ちとしてはPlanetに属する変数をglobal変数として使える．
+
+## 名前
 ## Operation Node
-- MainFunctionClass
-    - OperationNode
+- Planet
+    - OperationNode(SmallPot)
         - InputArea
             - InputTitle
             - InputImmutablePinArea
@@ -72,15 +79,18 @@ Operationの中では「副作用」が起こらないようにする．
 ## General
 - index.ts moduleのexport用．
 - global.ts　最初に実行し，main関数に相当する編集エリアを生成．
-- mainfunction.ts main関数に相当するclassを生成する．global変数にしたいものは，このmain classの変数として保存している．
+- main_class.ts main関数に相当するclassを生成する．global変数にしたいものは，このなかのPlanetの変数として保存している．
 - generatecode.ts コード生成用．
 
-## Node関連
-- operationnode_class.ts
-    - inputarea_class.ts
-    - textarea_class.ts
-    - outputarea_class.ts
-    - deletepinbtn_class.ts
+## Pot関連
+- main_class.ts Pot全体の定義
+- potelement_class.ts Potで使う要素などのclass定義
+- SmallPot(中にPotを含まないPot)
+    - operationnode_class.ts
+        - inputarea_class.ts
+        - textarea_class.ts
+        - outputarea_class.ts
+        - deletepinbtn_class.ts
 
 ## マウス操作関連
 - connectpins.ts ノード同士を接続する．
@@ -94,13 +104,11 @@ Operationの中では「副作用」が起こらないようにする．
 //--function definition
 fn five() -> i32 {5}
 fn two() -> i32 {2}
-fn add(a:i32, b:i32)-> i32{a+b}
+fn add_and_minus(a:i32, b:i32) -> i32{(a+b,a-b)}
 //-- execute main function
 fn main(){
     let a = five();
     let b = two();
-    let c = add(a,b);
-    println!("{}",c);
+    let (c,d) = add(a,b);
 }
 ```
-関数から複数のoutputがある場合どのように取り扱うか．

@@ -1,5 +1,4 @@
-import { MainFunctionClass, InputPin, OutputPin, TextArea } from "./index.js";
-import { OperationNode } from "./operationnode_class";
+import { Planet,InputPin, OutputPin, OperationPot,TextArea } from "./index.js";
 
 // Goal
 //--function definition
@@ -15,13 +14,13 @@ import { OperationNode } from "./operationnode_class";
 // }
 
 
-export function generateCode(main:MainFunctionClass){
+export function generateCode(planet:Planet){
     console.log('start generate code');
-    let generated_text = main.generatedText;//not simple string but pointer for string
+    
     let node_list:{[key: string]: SimpleInOutList;} = {};
-    for (let node_key in main.nodeList){
+    for (let node_key in planet.pots){
         //console.log('node list ='+ node_key);
-        node_list[node_key] = new SimpleInOutList(main, node_key);
+        node_list[node_key] = new SimpleInOutList(planet, node_key);
         console.log('created' + node_key+' '+node_list[node_key].inputlist);
     }
     console.log('node list created');
@@ -30,7 +29,7 @@ export function generateCode(main:MainFunctionClass){
     for(let nodeid in node_list){
         generateFunction(node_list[nodeid], node_list);
     }
-    main.generatedText += 'fn main(){\n';
+    planet.generatedText += 'fn main(){\n';
 
     //Main code
     while(Object.keys(node_list).length != 0 ){
@@ -45,15 +44,15 @@ export function generateCode(main:MainFunctionClass){
         }
     }
     //Finish Code
-    main.generatedText += '}';
+    planet.generatedText += '}';
 
     //output text
     let outputarea = <HTMLTextAreaElement> document.getElementById("generatedCode")
-    outputarea.value = main.generatedText
-    console.log('generated_text = \n' + main.generatedText );
+    outputarea.value = planet.generatedText
+    console.log('generated_text = \n' + planet.generatedText );
 
     //Clear Stored Text
-    main.generatedText = '';
+    planet.generatedText = '';
 
 }
 
@@ -61,26 +60,26 @@ class SimpleInOutList{
     inputlist:string[]; // list of node id come in 
     outputlist:string[]; //list of node id go out
     key: string;//node0, node1 etc...
-    main:MainFunctionClass;
-    original:OperationNode;
-    constructor(main:MainFunctionClass, node_key){
+    planet: Planet;
+    original:OperationPot;
+    constructor(planet: Planet, node_key){
         this.inputlist = [];
         this.outputlist = [];
         this.key = node_key;
-        this.main = main;
-        this.original = main.nodeList[node_key];
-        let input: {[key: string]: InputPin;} = main.nodeList[node_key].inputPinList;
+        this.planet = planet;
+        this.original = planet.pots[node_key];
+        let input: {[key: string]: InputPin;} = planet.pots[node_key].inputPinList;
         for( let i in input){
             let outputpins = input[i].connectList;
             for(let pin in outputpins){
-                this.inputlist.push(outputpins[pin].node.id); //Id of Node
+                this.inputlist.push(outputpins[pin].pot.id); //Id of Node
             }
         }
-        let output: {[key: string]: OutputPin;} = main.nodeList[node_key].outputPinList;
+        let output: {[key: string]: OutputPin;} = planet.pots[node_key].outputPinList;
         for( let i in output){
             let inputpins = output[i].connectList;
             for(let pin in inputpins){
-                this.outputlist.push(inputpins[pin].node.id);
+                this.outputlist.push(inputpins[pin].pot.id);
             }
         }
     }
@@ -89,8 +88,8 @@ class SimpleInOutList{
 
 function generateFunction(node:SimpleInOutList, node_list:{[key: string]: SimpleInOutList;}){
     //
-    node.main.generatedText += 'fn '
-    node.main.generatedText += node.original.nameDOM.value+' (';
+    node.planet.generatedText += 'fn '
+    node.planet.generatedText += node.original.nameDOM.value+' (';
     //Input
     let exist_input = 0;
     for(let key in node.original.inputPinList){
@@ -98,54 +97,54 @@ function generateFunction(node:SimpleInOutList, node_list:{[key: string]: Simple
         let in_type = node.original.inputPinList[key].type.DOM.textContent;
         if(in_variable!=''){ //<div id= ...info >text </div> //createTextNode(text)
             exist_input = 1;
-            node.main.generatedText += in_variable + ":" +in_type ;
-            node.main.generatedText += ', ';
+            node.planet.generatedText += in_variable + ":" +in_type ;
+            node.planet.generatedText += ', ';
         }
     }
     if(exist_input){
-        node.main.generatedText = node.main.generatedText.slice(0,-2); //delete ", "
+        node.planet.generatedText = node.planet.generatedText.slice(0,-2); //delete ", "
     }
 
-    node.main.generatedText += ') -> (';
+    node.planet.generatedText += ') -> (';
 
     //Output
     let exist_output = 0;
     for(let key in node.original.outputPinList){
         exist_output = 1;
-        node.main.generatedText += node.original.outputPinList[key].type.DOM.value ;
-        node.main.generatedText += ', '
+        node.planet.generatedText += node.original.outputPinList[key].type.DOM.value ;
+        node.planet.generatedText += ', '
     }
     //"function(a,b){ "
     if(exist_output){
-        node.main.generatedText = node.main.generatedText.slice(0,-2); //delete ", "
+        node.planet.generatedText = node.planet.generatedText.slice(0,-2); //delete ", "
     }
-    node.main.generatedText += '){\n';
+    node.planet.generatedText += '){\n';
 
     //main function
     let textDOM = <HTMLTextAreaElement> document.getElementById(node.key+'text');
-    node.main.generatedText += textDOM.value + '\n';
+    node.planet.generatedText += textDOM.value + '\n';
 
-    node.main.generatedText += '}\n';
+    node.planet.generatedText += '}\n';
 }
 function generateCodeOfThisNode(node:SimpleInOutList, node_list:{[key: string]: SimpleInOutList;}){
     //1. write header 
     // c, d = function(a,b){
     let exist_output = 0;
-    node.main.generatedText += 'let ('
+    node.planet.generatedText += 'let ('
     for(let key in node.original.outputPinList){
         exist_output = 1;
-        node.main.generatedText += node.original.outputPinList[key].info.DOM.value;
-        node.main.generatedText += ', '
+        node.planet.generatedText += node.original.outputPinList[key].info.DOM.value;
+        node.planet.generatedText += ', '
     }
     //"function(a,b){ "
     if(exist_output){
-        node.main.generatedText = node.main.generatedText.slice(0,-2); //delete ", "
-        node.main.generatedText += ') = '
+        node.planet.generatedText = node.planet.generatedText.slice(0,-2); //delete ", "
+        node.planet.generatedText += ') = '
     }else{
-        node.main.generatedText = node.main.generatedText.slice(0,-5); //delete "let ("
+        node.planet.generatedText = node.planet.generatedText.slice(0,-5); //delete "let ("
     }
 
-    node.main.generatedText += node.original.nameDOM.value+ '(';
+    node.planet.generatedText += node.original.nameDOM.value+ '(';
 
     //Input variable
     let exist_input = 0;
@@ -153,15 +152,15 @@ function generateCodeOfThisNode(node:SimpleInOutList, node_list:{[key: string]: 
         let in_variable = node.original.inputPinList[key].info.DOM.textContent;
         if(in_variable!=''){ //<div id= ...info >text </div> //createTextNode(text)
             exist_input = 1;
-            node.main.generatedText += in_variable  ;
-            node.main.generatedText += ', ';
+            node.planet.generatedText += in_variable  ;
+            node.planet.generatedText += ', ';
         }
     }
 
     if(exist_input){
-        node.main.generatedText = node.main.generatedText.slice(0,-2); //delete ", "
+        node.planet.generatedText = node.planet.generatedText.slice(0,-2); //delete ", "
     }
-    node.main.generatedText += ');\n';
+    node.planet.generatedText += ');\n';
 
 
     //3. remove This node from InputList of Other Nodes

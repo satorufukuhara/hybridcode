@@ -1,4 +1,4 @@
-import {OperationNode,InputPin, OutputPin} from './index.js'
+import {OperationPot,InputPin, OutputPin} from './index.js'
 
 export function drawEdge(x1:number,y1:number,x2:number,y2:number, objectId:string){
     let svgarea = document.getElementById("svgArea");
@@ -15,7 +15,7 @@ export function drawEdge(x1:number,y1:number,x2:number,y2:number, objectId:strin
     svgarea.appendChild(line1);
 }
 
-export function drawEdgeOfNode(target:OperationNode){
+export function drawEdgeOfNode(target:OperationPot){
     //for every InputNode and OutputNode in target
     for(let keys in target.inputPinList){
         let inPin = target.inputPinList[keys];
@@ -54,7 +54,7 @@ export function drawEdgeBetweenPins(s:OutputPin,t:InputPin){
     console.log('drawed '+edgeName);
 }
 
-export function clearEdgeOfNode(target:OperationNode){
+export function clearEdgeOfNode(target:OperationPot){
     console.log('clear edge when start drag');
     console.log(target.outputPinList);
     for(let keys in target.inputPinList){
@@ -74,9 +74,4 @@ export function clearEdgeOfNode(target:OperationNode){
             document.getElementById(outPin.id+'_to_'+inPin.id).remove()
         }
     };
-}
-
-export function redrawEdgeOfNode(target:OperationNode){
-    clearEdgeOfNode(target);
-    drawEdgeOfNode(target);
 }

@@ -1,7 +1,7 @@
-import { OperationNode } from "./operationnode_class.js";
+import { OperationPot } from "./index.js";
 import { drawEdgeOfNode, clearEdgeOfNode } from "./drawedge.js";
 
-export function dragNode(event,target:OperationNode){
+export function dragNode(event,target:OperationPot){
         //const el = inputTitle
         clearEdgeOfNode(target);
         const el = target.DOM;

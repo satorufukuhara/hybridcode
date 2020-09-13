@@ -23,8 +23,8 @@ function deletePin(e, s: OutputPin|InputPin){
 
     //remove from In/Output Pin List
     //console.log('inputpinlist(before=)'+ Object.keys(s.parent.parent.parent.inputPinList));
-    delete s.parent.parent.parent.inputPinList[s.id]
-    delete s.parent.parent.parent.outputPinList[s.id]
+    delete s.pot.inputPinList[s.id]
+    delete s.pot.outputPinList[s.id]
     //console.log('inputpinlist(sfter=)'+Object.keys(s.parent.parent.parent.inputPinList));
 }
 
