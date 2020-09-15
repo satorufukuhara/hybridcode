@@ -1,4 +1,4 @@
-import {connectPins,InputPin,startFindPin,dragNode} from './index.js'
+import {SmallPot,BigPot,connectPins,InputPin,startFindPin,dragNode} from './index.js'
 import { DeletePinBtn } from './deletepinbtn_class.js';
 import { PotDivElement, PotTextElement } from './potelement_class.js';
 import { OperationPot } from './operation_pot.js';
@@ -6,15 +6,21 @@ import { OperationPot } from './operation_pot.js';
 
 
 export class OutputArea extends PotDivElement{
-    constructor(parent:OperationPot){
+    constructor(parent:SmallPot|BigPot){
         super(parent);
         let elementid = parent.id + "-output";
         this.DOM.id = elementid;
         this.id = elementid;
-        this.DOM.className = 'operation-node__output-area';
+        this.DOM.className = this.pot.DOM.className + '__output-area';
 
         new OutputTitle(this);
         new OutputImmutablePinArea(this);
+    }
+}
+
+export class OutputAreaForBigPot extends OutputArea{
+    constructor(parent:BigPot){
+        super(parent);
     }
 }
 class OutputTitle extends PotDivElement{

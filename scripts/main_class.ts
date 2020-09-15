@@ -1,4 +1,4 @@
-import {OperationPot,OutputPin, InputPin, generateCode} from './index.js'
+import {OperationPot,OutputPin, InputPin, generateCode,FunctionName,InputAreaForBigPot,CodeAreaForBigPot,OutputAreaForBigPot} from './index.js'
 //1 Pot  - Small Pot 
 //                -OperationPot
 //       - GeneralBigPot - Planet
@@ -70,12 +70,24 @@ export class GeneralBigPot extends Pot{
 }
 
 export class BigPot extends GeneralBigPot{
-    constructor(parentPot:GeneralBigPot){
+    nameDOM:HTMLTextAreaElement;
+    parent:BigPot;
+    pot:BigPot;
+    constructor(garden:GeneralBigPot){
         super();
-        this.planet = parentPot.planet;
-        this.garden = parentPot;
+        this.parent = this; //BigPot root is itself. Similar as SmallPot
+        this.pot = this;
+        this.planet = garden.planet;
+        this.garden = garden;
         this.DOM = document.createElement("div");
-        parentPot.DOM.appendChild(this.DOM);
+        this.DOM.className = 'big-pot';
+        garden.DOM.appendChild(this.DOM);
+
+        new FunctionName(this);
+        new InputAreaForBigPot(this);
+        //new TextArea(this);
+        new CodeAreaForBigPot(this);
+        new OutputAreaForBigPot(this);
     }
 }
 export class Planet extends GeneralBigPot{

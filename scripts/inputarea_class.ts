@@ -1,4 +1,4 @@
-import {SmallPot,PotDivElement,PotTextElement, startFindPin,connectPins, dragNode,OutputPin} from './index.js'
+import {BigPot,SmallPot,PotDivElement,PotTextElement, startFindPin,connectPins, dragNode,OutputPin} from './index.js'
 import { DeletePinBtn, removeTargetFromList } from './deletepinbtn_class.js';
 
 // OperationNode
@@ -12,14 +12,20 @@ import { DeletePinBtn, removeTargetFromList } from './deletepinbtn_class.js';
 // -- OutputArea
 
 export class InputArea extends PotDivElement{
-    constructor(parent:SmallPot){
+    constructor(parent:SmallPot|BigPot){
         super(parent);
         let elementid = parent.id + "-input";
         this.DOM.id = elementid;
         this.id = elementid;
-        this.DOM.className = 'operation-node__input-area';
+        this.DOM.className = this.pot.DOM.className +'__input-area';
         new InputTitle(this);
         new InputImmutablePinArea(this);
+    }
+}
+
+export class InputAreaForBigPot extends InputArea{
+    constructor(parent:BigPot){
+        super(parent);
     }
 }
 

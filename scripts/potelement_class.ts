@@ -1,4 +1,4 @@
-import {GeneralBigPot,Planet,Pot,SmallPot} from './index.js'
+import {GeneralBigPot,Planet,BigPot,SmallPot} from './index.js'
 import { OperationPot } from './operation_pot.js';
 
 export class PotElement{
@@ -6,9 +6,9 @@ export class PotElement{
     garden:GeneralBigPot;
     planet:Planet;
     pot:SmallPot;
-    parent: PotElement|SmallPot;
+    parent: PotElement|SmallPot|BigPot;
     DOM:HTMLDivElement|HTMLTextAreaElement;
-    constructor(parent:PotElement|SmallPot){
+    constructor(parent:PotElement|SmallPot|BigPot){
         this.parent = parent;
         this.pot = parent.pot;
         this.garden = parent.garden;
@@ -63,5 +63,16 @@ export class TextArea extends PotTextElement{
         this.DOM.rows = 5;
         this.id = parent.id + 'text';
         this.DOM.id = this.id;
+    }
+}
+
+export class CodeAreaForBigPot extends PotDivElement{
+    constructor(parent:BigPot){
+        super(parent);
+        this.DOM.className = 'big-pot__code-area'
+        this.id = parent.id + 'codearea';
+        this.DOM.id = this.id;
+
+        new OperationPot(parent); //ToDo: make a UI to do this manually
     }
 }
