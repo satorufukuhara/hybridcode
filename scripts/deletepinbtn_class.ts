@@ -1,4 +1,4 @@
-import { InputPin, OutputPin } from "./index.js";
+import { InputPin,OutputPin,InputPinBtn, OutputPinBtn } from "./index.js";
 
 export class DeletePinBtn{
     DOM:HTMLDivElement;
@@ -13,9 +13,9 @@ export class DeletePinBtn{
 }
 
 function deletePin(e, s: OutputPin|InputPin){
-    for(let keys in s.connectList){
-        let t = s.connectList[keys];
-        deleteConnectedEdge(s,t) //remove SVG DOM if exists;
+    for(let keys in s.btn.connectList){
+        let t = s.btn.connectList[keys];
+        deleteConnectedEdge(s.btn,t) //remove SVG DOM if exists;
         delete t.connectList[s.id];
         s.DOM.remove();
     };
@@ -23,12 +23,12 @@ function deletePin(e, s: OutputPin|InputPin){
 
     //remove from In/Output Pin List
     //console.log('inputpinlist(before=)'+ Object.keys(s.parent.parent.parent.inputPinList));
-    delete s.parent.parent.parent.inputPinList[s.id]
-    delete s.parent.parent.parent.outputPinList[s.id]
+    delete s.pot.inputPinList[s.id]
+    delete s.pot.outputPinList[s.id]
     //console.log('inputpinlist(sfter=)'+Object.keys(s.parent.parent.parent.inputPinList));
 }
 
-function deleteConnectedEdge(s: InputPin|OutputPin,t: InputPin|OutputPin){
+function deleteConnectedEdge(s: InputPinBtn|OutputPinBtn,t: InputPinBtn|OutputPinBtn){
     let s_to_t = document.getElementById(s.id+'_to_'+t.id);
     if(s_to_t){
         s_to_t.remove();

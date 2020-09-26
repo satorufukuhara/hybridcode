@@ -1,13 +1,13 @@
-import { OperationNode } from "./operationnode_class.js";
+import { OperationPot } from "./index.js";
 import { drawEdgeOfNode, clearEdgeOfNode } from "./drawedge.js";
 
-export function dragNode(event,target:OperationNode){
+export function dragNode(event,target:OperationPot){
         //const el = inputTitle
         clearEdgeOfNode(target);
         const el = target.DOM;
 
         console.log('start drag')//
-        let dragArea = document.getElementById("codearea"); // if all, set as window
+        let dragArea = target.garden.DOM //document.getElementById("codearea"); // if all, set as window
             //window.addEventListener('mousemove', mousemove);
         window.addEventListener('mousemove', mousemove);
         window.addEventListener('mouseup', mouseup);

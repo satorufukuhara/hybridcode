@@ -1,4 +1,4 @@
-import {OperationNode,InputPin, OutputPin} from './index.js'
+import {SmallPot,OperationPot,InputPinBtn, OutputPinBtn} from './index.js'
 
 export function drawEdge(x1:number,y1:number,x2:number,y2:number, objectId:string){
     let svgarea = document.getElementById("svgArea");
@@ -15,28 +15,28 @@ export function drawEdge(x1:number,y1:number,x2:number,y2:number, objectId:strin
     svgarea.appendChild(line1);
 }
 
-export function drawEdgeOfNode(target:OperationNode){
+export function drawEdgeOfNode(target:SmallPot){
     //for every InputNode and OutputNode in target
     for(let keys in target.inputPinList){
         let inPin = target.inputPinList[keys];
 
-        for(let outpin_id in inPin.connectList){
-            let outPin = inPin.connectList[outpin_id];
-            drawEdgeBetweenPins(outPin, inPin);
+        for(let outpin_id in inPin.btn.connectList){
+            let outPinBtn = inPin.btn.connectList[outpin_id];
+            drawEdgeBetweenPins(outPinBtn, inPin.btn);
         };
     };
     for(let keys in target.outputPinList){
         let outPin = target.outputPinList[keys];
-        for(let inpin_id in outPin.connectList){
-            let inPin = outPin.connectList[inpin_id];
-            drawEdgeBetweenPins(outPin, inPin);
+        for(let inpin_id in outPin.btn.connectList){
+            let inPinBtn = outPin.btn.connectList[inpin_id];
+            drawEdgeBetweenPins(outPin.btn, inPinBtn);
         };
     };
 }
 
-export function drawEdgeBetweenPins(s:OutputPin,t:InputPin){
-    let sPosition = s.btn.DOM.getBoundingClientRect();
-    let tPosition = t.btn.DOM.getBoundingClientRect();
+export function drawEdgeBetweenPins(s:OutputPinBtn,t:InputPinBtn){
+    let sPosition = s.DOM.getBoundingClientRect();
+    let tPosition = t.DOM.getBoundingClientRect();
     let x1 = (sPosition.left + sPosition.right)/2 ;
     let y1 = (sPosition.top + sPosition.bottom)/2 ;
     let x2 = (tPosition.left + tPosition.right)/2 ;
@@ -54,29 +54,24 @@ export function drawEdgeBetweenPins(s:OutputPin,t:InputPin){
     console.log('drawed '+edgeName);
 }
 
-export function clearEdgeOfNode(target:OperationNode){
+export function clearEdgeOfNode(target:OperationPot){
     console.log('clear edge when start drag');
     console.log(target.outputPinList);
     for(let keys in target.inputPinList){
         let inPin = target.inputPinList[keys];
-        for(let pin_id in inPin.connectList){
-            let outPin = inPin.connectList[pin_id];
+        for(let pin_id in inPin.btn.connectList){
+            let outPin = inPin.btn.connectList[pin_id];
             console.log('remove Edge '+outPin.id+'_to_'+inPin.id)
             document.getElementById(outPin.id+'_to_'+inPin.id).remove()
         }
     };
     for(let keys in target.outputPinList){
         let outPin = target.outputPinList[keys];
-        for(let inpin_id in outPin.connectList){
+        for(let inpin_id in outPin.btn.connectList){
             console.log('connected pin = '+inpin_id);
-            let inPin = outPin.connectList[inpin_id];
+            let inPin = outPin.btn.connectList[inpin_id];
             console.log('remove Edge '+outPin.id+'_to_'+inPin.id)
             document.getElementById(outPin.id+'_to_'+inPin.id).remove()
         }
     };
-}
-
-export function redrawEdgeOfNode(target:OperationNode){
-    clearEdgeOfNode(target);
-    drawEdgeOfNode(target);
 }

@@ -83,10 +83,9 @@ svg {
   background-color: #3F3F3F;
 }
 
-.block__add-node--operation {
+.block .block__add-node, .block .block__add-node--operation, .block .block__add-node--big-pot {
   position: absolute;
   margin: auto;
-  top: 5rem;
   left: 0;
   right: 0;
   -webkit-user-select: none;
@@ -101,6 +100,14 @@ svg {
   border-radius: 5%;
   z-index: 10;
   text-align: center;
+}
+
+.block__add-node--operation {
+  top: 5rem;
+}
+
+.block__add-node--big-pot {
+  top: 10rem;
 }
 
 .block__codearea {
@@ -293,14 +300,14 @@ svg {
 .operation-node__output-pin-info {
   display: table-cell;
   vertical-align: middle;
-  width: 40%;
+  width: 35%;
   height: 60%;
 }
 
 .operation-node__output-pin-type {
   display: table-cell;
   vertical-align: middle;
-  width: 40%;
+  width: 35%;
   height: 60%;
 }
 
@@ -311,5 +318,20 @@ svg {
   width: 10px;
   height: 10px;
   border-radius: 50%;
+}
+
+.big-pot {
+  height: 200px;
+  width: 500px;
+  position: absolute;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 30px 30px 200px 30px;
+      grid-template-rows: 30px 30px 200px 30px;
+  z-index: 100;
+}
+
+.big-pot__code-area {
+  background-color: #3F3F3F;
 }
 /*# sourceMappingURL=index.css.map */

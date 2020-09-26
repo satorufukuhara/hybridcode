@@ -1,6 +1,8 @@
 node_modules/
 # generated js from ts
 build/
+# scss map file
+*.css.map
 
 ##----github/gitignore/Global/Windows.gitignore
 # Windows thumbnail cache files

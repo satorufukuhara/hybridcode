@@ -1,4 +1,4 @@
-import {MainFunctionClass,startFindPin,connectPins, dragNode, OperationNode, OutputPin} from './index.js'
+import {BigPot,SmallPot,PotDivElement,PotTextElement, startFindPin,connectPins, dragNode,OutputPinBtn} from './index.js'
 import { DeletePinBtn, removeTargetFromList } from './deletepinbtn_class.js';
 
 // OperationNode
@@ -11,97 +11,63 @@ import { DeletePinBtn, removeTargetFromList } from './deletepinbtn_class.js';
 // -- TextArea
 // -- OutputArea
 
-export class InputArea{
-    DOM:HTMLDivElement;
-    id:string;
-    parent:OperationNode;
-    main:MainFunctionClass;
-    constructor(parent:OperationNode){
-        this.parent = parent;
-        this.main = parent.main;
-        this.DOM = document.createElement("div");
+export class InputArea extends PotDivElement{
+    constructor(parent:SmallPot|BigPot){
+        super(parent);
         let elementid = parent.id + "-input";
         this.DOM.id = elementid;
         this.id = elementid;
-        this.DOM.className = 'operation-node__input-area';
-
-        parent.DOM.appendChild(this.DOM);
-
+        this.DOM.className = this.pot.DOM.className +'__input-area';
         new InputTitle(this);
         new InputImmutablePinArea(this);
     }
 }
 
-class InputTitle{
-    DOM:HTMLDivElement;
-    parent:InputArea;
-    main:MainFunctionClass;
+class InputTitle extends PotDivElement{
     constructor(parent:InputArea){
-        this.parent = parent;
-        this.main = parent.main;
-        this.DOM = document.createElement("div");
+        super(parent);
         this.DOM.appendChild(document.createTextNode("INPUT"));
-        //this.DOM.id = inputId+"-title";
         this.DOM.className = 'operation-node__input-title';
-        parent.DOM.appendChild(this.DOM);
-        this.DOM.addEventListener('mousedown',(e) => { dragNode(e,this.parent.parent)} );
+        this.DOM.addEventListener('mousedown',(e) => { dragNode(e,this.pot)} );
     }
 }
 
-class InputImmutablePinArea{
-    DOM:HTMLDivElement;
-    parent:InputArea;
-    main: MainFunctionClass;
+class InputImmutablePinArea extends PotDivElement{
     constructor(parent:InputArea){
-        this.parent = parent;
-        this.main = parent.main;
-        this.DOM = document.createElement("div");
+        super(parent);
         this.DOM.className = 'operation-node__input-pin-area--immutable'
-        parent.DOM.appendChild(this.DOM);
         new AddInputBtn(this);
     }
 }
 
-class AddInputBtn{
-    DOM:HTMLDivElement;
+class AddInputBtn extends PotDivElement{
     constructor(parent:InputImmutablePinArea){
-        this.DOM = document.createElement("div");
+        super(parent);
         const btntext = document.createTextNode("+");
         this.DOM.appendChild(btntext);
         this.DOM.className = 'operation-node__add-input-btn';
         this.DOM.addEventListener('click', event =>{
             new InputPin(parent);
         })
-        parent.DOM.appendChild(this.DOM);
     };
 }
 
-export class InputPin{
-    parent:InputImmutablePinArea;
-    DOM:HTMLDivElement;
-    id:string;
+export class InputPin extends PotDivElement{
     btn:InputPinBtn;
     info: InputPinInfo;
     type: InputPinType;
-    connectList: {[key:string]: OutputPin;};
-    main: MainFunctionClass;
-    node: OperationNode;
+    
     constructor(parent:InputImmutablePinArea){
-        this.parent = parent;
-        this.node = this.parent.parent.parent;
-        this.main = parent.main;
-        this.DOM = document.createElement("div");
-        //this.DOM.dataset.list = 'none' //List of Connected Edge;
+        super(parent);
         this.DOM.className = 'operation-node__input-pin';
-        this.connectList = {};
+        
 
-        this.id = parent.parent.parent.id+'_'+ String(this.main.pinCounter);
+
+        this.id = this.pot.id+'_'+ String(this.planet.pinCounter);
         console.log('pinID =' + this.id)
-        this.main.pinCounter +=1;
-
-        parent.DOM.appendChild(this.DOM);
+        this.planet.pinCounter +=1;
         //parent.parent.parent.inputPinList.push(this);
-        parent.parent.parent.inputPinList[this.id]=this;
+        this.pot.inputPinList[this.id]=this;
 
         this.btn = new InputPinBtn(this);
         this.info = new InputPinInfo(this);
@@ -110,48 +76,26 @@ export class InputPin{
     }
 }
 
-export class InputPinBtn{
-    DOM:HTMLDivElement;
-    parent:InputPin;
-    main:MainFunctionClass;
+export class InputPinBtn extends PotDivElement{
+    connectList: {[key:string]: OutputPinBtn;};
     constructor(parent:InputPin){
-        this.parent = parent;
-        this.main = parent.main;
-        this.DOM = document.createElement("div");
+        super(parent);
+        this.connectList = {};
         this.DOM.className = 'operation-node__input-pin-btn';
-        parent.DOM.appendChild(this.DOM);
-
-        this.DOM.addEventListener('mouseup',e =>{connectPins(e,this)});
-        this.DOM.addEventListener('mousedown', (e) => {startFindPin(e,this.parent)});
-
+        this.DOM.addEventListener('mouseup',e =>{connectPins(e, this)});
+        this.DOM.addEventListener('mousedown', (e) => {startFindPin(e, this)});
     }
 }
-
-
-class InputPinInfo{
-    parent:InputPin;
-    DOM:HTMLDivElement;
-    main:MainFunctionClass;
+export class InputPinInfo extends PotDivElement{
     constructor(parent:InputPin){
-        this.parent = parent;
-        this.main = parent.main;
-        this.DOM = document.createElement("div");
-        //textform.width="100%";
+        super(parent);
         this.DOM.className = 'operation-node__input-pin-info'
-        parent.DOM.appendChild(this.DOM);
     }
 }
-class InputPinType{
-    parent:InputPin;
-    DOM:HTMLDivElement;
-    main:MainFunctionClass;
+export class InputPinType extends PotDivElement{
     constructor(parent:InputPin){
-        this.parent = parent;
-        this.main = parent.main;
-        this.DOM = document.createElement("div");
-        //textform.width="100%";
+        super(parent);
         this.DOM.className = 'operation-node__input-pin-type'
-        parent.DOM.appendChild(this.DOM);
     }
 }
 
