@@ -118,10 +118,13 @@ svg {
   height: 200px;
   width: 500px;
   position: absolute;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-rows: 30px 30px 100px 30px;
-      grid-template-rows: 30px 30px 100px 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   z-index: 10;
 }
 
