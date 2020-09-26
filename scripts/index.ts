@@ -7,7 +7,9 @@ export {drawEdge, drawEdgeOfNode,clearEdgeOfNode} from './drawedge.js'
 
 //Scripts for OperationNode
 export {OperationPot} from './operation_pot.js'
-export {InputArea, InputAreaForBigPot,InputPin, InputPinBtn} from './inputarea_class.js'
+
+export {InputPinForBigPot,InputAreaForBigPot} from './bigpot_inputarea_class.js'
+export {InputArea, InputPin, InputPinBtn, InputPinInfo, InputPinType} from './inputarea_class.js'
 export {OutputArea, OutputAreaForBigPot,OutputPin, OutputPinBtn} from './outputarea_class.js'
 
 export {dragNode} from './dragnode.js'

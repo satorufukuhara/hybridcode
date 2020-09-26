@@ -1,4 +1,4 @@
-import {SmallPot,BigPot,connectPins,InputPin,startFindPin,dragNode} from './index.js'
+import {SmallPot,BigPot,InputPinForBigPot, connectPins,InputPinBtn,startFindPin,dragNode} from './index.js'
 import { DeletePinBtn } from './deletepinbtn_class.js';
 import { PotDivElement, PotTextElement } from './potelement_class.js';
 import { OperationPot } from './operation_pot.js';
@@ -53,12 +53,11 @@ class AddOutputBtn extends PotDivElement{
 
 export class OutputPin extends PotDivElement{
     btn:OutputPinBtn
-    connectList: {[key:string]: InputPin;};
+    
     info: OutputPinInfo;
     type: OutputPinType;
     constructor(parent:OutputImmutablePinArea){
         super(parent);
-        this.connectList = {};
         this.DOM.className = 'operation-node__output-pin';
         this.id = parent.parent.parent.id+'_'+ String(this.planet.pinCounter);
         console.log('pinID =' + this.id)
@@ -76,12 +75,13 @@ export class OutputPin extends PotDivElement{
 }
 
 export class OutputPinBtn extends PotDivElement{
-    constructor(parent:OutputPin){
+    connectList: {[key:string]: InputPinBtn;};
+    constructor(parent:OutputPin|InputPinForBigPot){
         super(parent);
+        this.connectList = {};
         this.DOM.className = 'operation-node__output-pin-btn';
-
-        this.DOM.addEventListener('mouseup',e =>{connectPins(e, parent)});
-        this.DOM.addEventListener('mousedown', (e) => {startFindPin(e,parent)});
+        //this.DOM.addEventListener('mouseup',e =>{connectPins(e, parent)}); //Want to activate by startFindPin
+        this.DOM.addEventListener('mousedown', (e) => {startFindPin(e,this)});
     }
 }
 

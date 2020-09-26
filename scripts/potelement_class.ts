@@ -5,7 +5,7 @@ export class PotElement{
     id:string;
     garden:GeneralBigPot;
     planet:Planet;
-    pot:SmallPot;
+    pot:SmallPot|BigPot;
     parent: PotElement|SmallPot|BigPot;
     DOM:HTMLDivElement|HTMLTextAreaElement;
     constructor(parent:PotElement|SmallPot|BigPot){
@@ -18,7 +18,7 @@ export class PotElement{
 
 export class PotDivElement extends PotElement{
     DOM:HTMLDivElement;
-    constructor(parent:PotElement|SmallPot){
+    constructor(parent:PotElement|SmallPot|BigPot){
         super(parent);
         this.DOM = document.createElement("div");
         parent.DOM.appendChild(this.DOM);
@@ -27,7 +27,7 @@ export class PotDivElement extends PotElement{
 
 export class PotTextElement extends PotElement{
     DOM:HTMLTextAreaElement;
-    constructor(parent:PotElement|PotElement){
+    constructor(parent:PotElement|PotElement|BigPot){
         super(parent);
         this.DOM = document.createElement("textarea");
         parent.DOM.appendChild(this.DOM);

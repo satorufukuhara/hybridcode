@@ -1,4 +1,4 @@
-import {OperationPot,OutputPin, InputPin, generateCode,FunctionName,InputAreaForBigPot,CodeAreaForBigPot,OutputAreaForBigPot} from './index.js'
+import {OperationPot,OutputPin,OutputPinBtn, InputPin,InputPinBtn, generateCode,FunctionName,InputAreaForBigPot,CodeAreaForBigPot,OutputAreaForBigPot} from './index.js'
 //1 Pot  - Small Pot 
 //                -OperationPot
 //       - GeneralBigPot - Planet
@@ -56,7 +56,7 @@ export class GeneralBigPot extends Pot{
     edgeDrawing:boolean;
     startPinID:string;
     dragStartX:number;
-    tmpStartPin:OutputPin|InputPin;
+    tmpStartPinBtn:OutputPinBtn|InputPinBtn;
     dragStartY:number;
     planet:Planet;//Do not define here
     pots : {[key: string]: SmallPot;} //CHANGE TO "PotList" or "Pots", and allow GeneralPots

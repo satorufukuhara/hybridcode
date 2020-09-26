@@ -7,7 +7,7 @@ export function dragNode(event,target:OperationPot){
         const el = target.DOM;
 
         console.log('start drag')//
-        let dragArea = document.getElementById("codearea"); // if all, set as window
+        let dragArea = target.garden.DOM //document.getElementById("codearea"); // if all, set as window
             //window.addEventListener('mousemove', mousemove);
         window.addEventListener('mousemove', mousemove);
         window.addEventListener('mouseup', mouseup);

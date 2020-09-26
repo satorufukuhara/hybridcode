@@ -1,4 +1,4 @@
-import {BigPot,SmallPot,PotDivElement,PotTextElement, startFindPin,connectPins, dragNode,OutputPin} from './index.js'
+import {BigPot,SmallPot,PotDivElement,PotTextElement, startFindPin,connectPins, dragNode,OutputPinBtn} from './index.js'
 import { DeletePinBtn, removeTargetFromList } from './deletepinbtn_class.js';
 
 // OperationNode
@@ -20,12 +20,6 @@ export class InputArea extends PotDivElement{
         this.DOM.className = this.pot.DOM.className +'__input-area';
         new InputTitle(this);
         new InputImmutablePinArea(this);
-    }
-}
-
-export class InputAreaForBigPot extends InputArea{
-    constructor(parent:BigPot){
-        super(parent);
     }
 }
 
@@ -62,11 +56,13 @@ export class InputPin extends PotDivElement{
     btn:InputPinBtn;
     info: InputPinInfo;
     type: InputPinType;
-    connectList: {[key:string]: OutputPin;};
+    
     constructor(parent:InputImmutablePinArea){
         super(parent);
         this.DOM.className = 'operation-node__input-pin';
-        this.connectList = {};
+        
+
+
         this.id = this.pot.id+'_'+ String(this.planet.pinCounter);
         console.log('pinID =' + this.id)
         this.planet.pinCounter +=1;
@@ -81,20 +77,22 @@ export class InputPin extends PotDivElement{
 }
 
 export class InputPinBtn extends PotDivElement{
+    connectList: {[key:string]: OutputPinBtn;};
     constructor(parent:InputPin){
         super(parent);
+        this.connectList = {};
         this.DOM.className = 'operation-node__input-pin-btn';
-        this.DOM.addEventListener('mouseup',e =>{connectPins(e, parent)});
-        this.DOM.addEventListener('mousedown', (e) => {startFindPin(e, parent)});
+        this.DOM.addEventListener('mouseup',e =>{connectPins(e, this)});
+        this.DOM.addEventListener('mousedown', (e) => {startFindPin(e, this)});
     }
 }
-class InputPinInfo extends PotDivElement{
+export class InputPinInfo extends PotDivElement{
     constructor(parent:InputPin){
         super(parent);
         this.DOM.className = 'operation-node__input-pin-info'
     }
 }
-class InputPinType extends PotDivElement{
+export class InputPinType extends PotDivElement{
     constructor(parent:InputPin){
         super(parent);
         this.DOM.className = 'operation-node__input-pin-type'
