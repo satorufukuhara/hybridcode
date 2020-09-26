@@ -13,6 +13,7 @@ import { } from './outputarea_class.js';
 // -- OutputArea
 
 export class InputAreaForBigPot extends PotDivElement{
+    immutable: InputImmutablePinAreaForBigPot;
     constructor(parent:BigPot){
         super(parent);
         let elementid = parent.id + "-input";

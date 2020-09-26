@@ -1,5 +1,7 @@
-import {GeneralBigPot,Planet,BigPot,SmallPot} from './index.js'
+import {dragNode,GeneralBigPot,Planet,BigPot,SmallPot,AddInputPinBtns,AddOutputPinBtns} from './index.js'
 import { OperationPot } from './operation_pot.js';
+import { InputArea } from './inputarea_class.js';
+import { OutputArea } from './outputarea_class.js';
 
 export class PotElement{
     id:string;
@@ -25,6 +27,13 @@ export class PotDivElement extends PotElement{
     }
 }
 
+export class PinArea extends PotDivElement{
+    constructor(parent:InputArea|OutputArea){
+        super(parent);
+    }
+}
+
+
 export class PotTextElement extends PotElement{
     DOM:HTMLTextAreaElement;
     constructor(parent:PotElement|PotElement|BigPot){
@@ -34,11 +43,13 @@ export class PotTextElement extends PotElement{
     }
 }
 
+
 export class FunctionName extends PotDivElement{
     textarea:FunctionNameTextArea;
-    constructor(parent:SmallPot){
+    constructor(parent:InputArea){
         super(parent);
-        this.DOM.className = 'operation-node__function-name';
+        this.DOM.className = 'input-area__function-name';
+        this.DOM.addEventListener('mousedown',(e) => { dragNode(e,this.pot)} );
         this.textarea= new FunctionNameTextArea(this);
     }
 }
@@ -48,7 +59,7 @@ class FunctionNameTextArea extends PotTextElement{
         super(parent);
         this.DOM.textContent = this.pot.id;
         //textform.width="100%";
-        this.DOM.className = 'operation-node__function-name-text-area'
+        this.DOM.className = 'input-area__function-name-text-area'
         this.id = this.pot.id+'_name';
         this.DOM.id = this.pot.id+'_name';
         this.DOM.rows = 1;

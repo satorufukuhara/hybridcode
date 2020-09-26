@@ -1,0 +1,58 @@
+
+.block{
+    //display: table;
+    overflow: hidden;
+    height: 100%;
+    text-align: center;
+    margin: none;
+    //grid-template-columns: 1fr 2fr;
+    &__nodeselector{
+        float: left;
+        position: relative;
+        height: 100%;
+
+        //display: table-cell;
+        width: 20rem;
+        color: #6F6F6F;
+        background-color: #3F3F3F;
+    }
+
+    %__add-node{
+        position: absolute;
+        margin: auto;
+        left:0;
+        right:0;
+        user-select: none;
+        text-align: center;
+        height: 2rem;
+        width:  10rem;
+        color: white;
+        background-color: var(--softblue);
+        border-radius:5%;
+        z-index: 10;
+        text-align:center;
+    }
+    &__add-node{
+        @extend %__add-node;
+        &--operation{
+            @extend %__add-node;
+            top: 5rem;
+        }
+        &--big-pot{
+            @extend %__add-node;
+            top: 10rem;
+        }
+    }
+    &__codearea{
+        color: #6F6F6F;
+        text-align: center;
+        //flex: 1;
+        position:relative;
+        float: right;
+        width: calc(100% - 20rem);
+        //display: table-cell;
+        background-color: #262626;
+        height: 100%;
+        z-index: 1;
+    }
+}

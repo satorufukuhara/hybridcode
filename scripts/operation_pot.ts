@@ -9,9 +9,9 @@ export class OperationPot extends SmallPot{
         console.log('created '+ this.id);
         this.DOM.className = 'operation-node';
 
-        new FunctionName(this);
-        new InputArea(this);
+        //new FunctionName(this);
+        this.input = new InputArea(this);
         new TextArea(this);
-        new OutputArea(this);
+        this.output = new OutputArea(this);
     }
 }

@@ -1,4 +1,6 @@
 import {OperationPot,OutputPin,OutputPinBtn, InputPin,InputPinBtn, generateCode,FunctionName,InputAreaForBigPot,CodeAreaForBigPot,OutputAreaForBigPot} from './index.js'
+import { InputArea } from './inputarea_class.js';
+import { OutputArea } from './outputarea_class.js';
 //1 Pot  - Small Pot 
 //                -OperationPot
 //       - GeneralBigPot - Planet
@@ -32,6 +34,8 @@ export class SmallPot extends Pot{
     nameDOM:HTMLTextAreaElement;
     pot:SmallPot;
     parent:SmallPot;
+    input:InputArea;
+    output:OutputArea;
     constructor(garden:GeneralBigPot){
         super();
         this.DOM = document.createElement("div");
@@ -50,8 +54,6 @@ export class SmallPot extends Pot{
     }
 }
 
-
-
 export class GeneralBigPot extends Pot{
     edgeDrawing:boolean;
     startPinID:string;
@@ -69,27 +71,7 @@ export class GeneralBigPot extends Pot{
     }
 }
 
-export class BigPot extends GeneralBigPot{
-    nameDOM:HTMLTextAreaElement;
-    parent:BigPot;
-    pot:BigPot;
-    constructor(garden:GeneralBigPot){
-        super();
-        this.parent = this; //BigPot root is itself. Similar as SmallPot
-        this.pot = this;
-        this.planet = garden.planet;
-        this.garden = garden;
-        this.DOM = document.createElement("div");
-        this.DOM.className = 'big-pot';
-        garden.DOM.appendChild(this.DOM);
 
-        new FunctionName(this);
-        new InputAreaForBigPot(this);
-        //new TextArea(this);
-        new CodeAreaForBigPot(this);
-        new OutputAreaForBigPot(this);
-    }
-}
 export class Planet extends GeneralBigPot{
     potCounter:number;
     pinCounter:number;

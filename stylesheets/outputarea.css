@@ -1,0 +1,85 @@
+.output-area {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  height: 50px;
+}
+
+.output-area__add-output-pin-btns {
+  height: 100%;
+  width: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.output-area__add-output-btn {
+  width: 100%;
+  height: 50%;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  text-align: center;
+  background-color: gray;
+}
+
+.output-area__output-pin-area--immutable {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+}
+
+.output-area__add-output-btn {
+  width: 10%;
+  height: 100%;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  text-align: center;
+  background-color: gray;
+}
+
+.output-area__output-pin {
+  width: 30%;
+  height: 100%;
+  display: table;
+  border-right: dotted;
+  background-color: var(--softblue);
+  position: relative;
+}
+
+.output-area__output-pin-btn {
+  background-color: #9CDCFE;
+  position: absolute;
+  top: 20px;
+  left: 5px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.output-area__output-pin-info {
+  display: table-cell;
+  vertical-align: middle;
+  width: 35%;
+  height: 60%;
+}
+
+.output-area__output-pin-type {
+  display: table-cell;
+  vertical-align: middle;
+  width: 35%;
+  height: 60%;
+}
+/*# sourceMappingURL=outputarea.css.map */
