@@ -47,9 +47,22 @@ Operationの中では「副作用」が起こらないようにする．
 - 関数記述エリアの拡大に合わせてノードを調整
 
 
-# 実行
-```tsc```でscripts中の.tsをbuild.
-```npm start```でelectronを起動.
+# 環境構築
+## Setup
+```
+ $ git clone git@github.com:satorufukuhara/hybridcode.git
+ $ cd hybridcode
+ $ npm install
+```
+## Build
+```
+ $ npm run ts
+```
+
+## Launch Electron
+```
+ $ npm start
+```
 
 # Class仕様
 通常のコードにおける「一つの関数」それぞれに対してオブジェクトを生成する．
